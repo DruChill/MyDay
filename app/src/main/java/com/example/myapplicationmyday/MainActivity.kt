@@ -71,6 +71,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
+        
         binding.btnSearch.setOnClickListener {
             // TODO: Implementar búsqueda
         }
