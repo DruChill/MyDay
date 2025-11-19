@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">My ApplicationMy Day</string>
+    <string name="app_name">Mi Diario</string>
+    <string name="diary_title">Diario</string>
+    <string name="no_entries">Sin entradas</string>
+    <string name="add_entry_hint">Para agregar una entrada, toca el botón Más.</string>
+    <string name="add_button">Agregar entrada</string>
+    <string name="entry_title">Título</string>
+    <string name="entry_content">¿Qué pasó hoy?</string>
+    <string name="save">Guardar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="delete">Eliminar</string>
+    <string name="edit">Editar</string>
+    <string name="search">Buscar</string>
+    <string name="more_options">Más opciones</string>
 </resources>
