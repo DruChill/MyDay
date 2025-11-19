@@ -3,10 +3,14 @@ package com.example.myapplicationmyday
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.PopupMenu
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplicationmyday.adapter.DiaryAdapter
+import com.example.myapplicationmyday.adapter.toItemsWithHeaders
+import com.example.myapplicationmyday.data.DiaryEntry
 import com.example.myapplicationmyday.databinding.ActivityMainBinding
 import com.example.myapplicationmyday.viewmodel.DiaryViewModel
 
@@ -27,13 +31,18 @@ class MainActivity : AppCompatActivity() {
     }
     
     private fun setupRecyclerView() {
-        adapter = DiaryAdapter { entry ->
-            // Abrir la pantalla de edición/vista de entrada
-            val intent = Intent(this, AddEditEntryActivity::class.java).apply {
-                putExtra("ENTRY_ID", entry.id)
+        adapter = DiaryAdapter(
+            onItemClick = { entry ->
+                // Abrir la pantalla de edición/vista de entrada
+                val intent = Intent(this, AddEditEntryActivity::class.java).apply {
+                    putExtra("ENTRY_ID", entry.id)
+                }
+                startActivity(intent)
+            },
+            onMenuClick = { entry, view ->
+                showEntryMenu(entry, view)
             }
-            startActivity(intent)
-        }
+        )
         
         binding.rvDiaryEntries.layoutManager = LinearLayoutManager(this)
         binding.rvDiaryEntries.adapter = adapter
@@ -41,7 +50,9 @@ class MainActivity : AppCompatActivity() {
     
     private fun setupObservers() {
         viewModel.allEntries.observe(this) { entries ->
-            adapter.submitList(entries)
+            // Convertir las entradas a items con headers
+            val items = entries.toItemsWithHeaders()
+            adapter.submitList(items)
             
             // Mostrar/ocultar el estado vacío
             if (entries.isEmpty()) {
@@ -60,11 +71,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         
-        binding.btnBack.setOnClickListener {
-            // Acción para el botón de atrás (opcional)
-            finish()
-        }
-        
         binding.btnSearch.setOnClickListener {
             // TODO: Implementar búsqueda
         }
@@ -72,5 +78,39 @@ class MainActivity : AppCompatActivity() {
         binding.btnMore.setOnClickListener {
             // TODO: Mostrar menú de opciones
         }
+    }
+    
+    private fun showEntryMenu(entry: DiaryEntry, view: View) {
+        val popup = PopupMenu(this, view)
+        popup.menuInflater.inflate(R.menu.entry_menu, popup.menu)
+        
+        popup.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.action_edit -> {
+                    val intent = Intent(this, AddEditEntryActivity::class.java).apply {
+                        putExtra("ENTRY_ID", entry.id)
+                    }
+                    startActivity(intent)
+                    true
+                }
+                R.id.action_delete -> {
+                    showDeleteConfirmation(entry)
+                    true
+                }
+                else -> false
+            }
+        }
+        popup.show()
+    }
+    
+    private fun showDeleteConfirmation(entry: DiaryEntry) {
+        AlertDialog.Builder(this)
+            .setTitle("Eliminar entrada")
+            .setMessage("¿Estás seguro de que quieres eliminar esta entrada?")
+            .setPositiveButton("Eliminar") { _, _ ->
+                viewModel.delete(entry)
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
     }
 }

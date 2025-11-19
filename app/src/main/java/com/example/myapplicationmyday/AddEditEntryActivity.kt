@@ -44,7 +44,7 @@ class AddEditEntryActivity : AppCompatActivity() {
     }
     
     private fun setCurrentDate() {
-        val dateFormat = SimpleDateFormat("d 'de' MMMM 'de' yyyy", Locale("es", "ES"))
+        val dateFormat = SimpleDateFormat("d 'de' MMMM 'de' yyyy", Locale.forLanguageTag("es-ES"))
         binding.tvDate.text = dateFormat.format(Date())
     }
     
@@ -56,7 +56,7 @@ class AddEditEntryActivity : AppCompatActivity() {
                 binding.etTitle.setText(entry.title)
                 binding.etContent.setText(entry.content)
                 
-                val dateFormat = SimpleDateFormat("d 'de' MMMM 'de' yyyy", Locale("es", "ES"))
+                val dateFormat = SimpleDateFormat("d 'de' MMMM 'de' yyyy", Locale.forLanguageTag("es-ES"))
                 binding.tvDate.text = dateFormat.format(Date(entry.date))
             }
         }
