@@ -7,17 +7,22 @@ import android.widget.PopupMenu
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplicationmyday.adapter.DiaryAdapter
 import com.example.myapplicationmyday.adapter.toItemsWithHeaders
+import com.example.myapplicationmyday.data.DeletedEntry
 import com.example.myapplicationmyday.data.DiaryEntry
 import com.example.myapplicationmyday.databinding.ActivityMainBinding
+import com.example.myapplicationmyday.viewmodel.DeletedEntryViewModel
 import com.example.myapplicationmyday.viewmodel.DiaryViewModel
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     
     private lateinit var binding: ActivityMainBinding
     private val viewModel: DiaryViewModel by viewModels()
+    private val deletedViewModel: DeletedEntryViewModel by viewModels()
     private lateinit var adapter: DiaryAdapter
     
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -112,9 +117,27 @@ class MainActivity : AppCompatActivity() {
             .setTitle("Eliminar entrada")
             .setMessage("¿Estás seguro de que quieres eliminar esta entrada?")
             .setPositiveButton("Eliminar") { _, _ ->
-                viewModel.delete(entry)
+                moveToTrash(entry)
             }
             .setNegativeButton("Cancelar", null)
             .show()
+    }
+    
+    private fun moveToTrash(entry: DiaryEntry) {
+        lifecycleScope.launch {
+            // Crear entrada eliminada
+            val deletedEntry = DeletedEntry(
+                originalId = entry.id,
+                title = entry.title,
+                content = entry.content,
+                date = entry.date,
+                createdAt = entry.createdAt,
+                deletedAt = System.currentTimeMillis()
+            )
+            
+            // Guardar en papelera y eliminar del diario
+            deletedViewModel.insert(deletedEntry)
+            viewModel.delete(entry)
+        }
     }
 }

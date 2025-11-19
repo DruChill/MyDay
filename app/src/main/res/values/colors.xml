@@ -5,6 +5,7 @@
     <color name="background">#F5F5F5</color>
     <color name="primary">#6366F1</color>
     <color name="primary_dark">#4F46E5</color>
+    <color name="primary_light">#E0E7FF</color>
     <color name="accent">#EC4899</color>
     <color name="text_primary">#1F2937</color>
     <color name="text_secondary">#6B7280</color>

@@ -111,7 +111,8 @@ class HomeActivity : AppCompatActivity() {
         
         // Click en "Eliminadas recientemente"
         binding.layoutDeleted.setOnClickListener {
-            // TODO: Abrir pantalla de eliminadas
+            val intent = Intent(this, DeletedEntriesActivity::class.java)
+            startActivity(intent)
         }
         
         // Botón para crear nuevo diario

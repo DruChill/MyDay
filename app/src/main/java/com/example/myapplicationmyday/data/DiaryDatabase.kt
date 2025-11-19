@@ -5,9 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [DiaryEntry::class], version = 1, exportSchema = false)
+@Database(entities = [DiaryEntry::class, DeletedEntry::class], version = 2, exportSchema = false)
 abstract class DiaryDatabase : RoomDatabase() {
     abstract fun diaryDao(): DiaryDao
+    abstract fun deletedEntryDao(): DeletedEntryDao
     
     companion object {
         @Volatile
@@ -19,7 +20,9 @@ abstract class DiaryDatabase : RoomDatabase() {
                     context.applicationContext,
                     DiaryDatabase::class.java,
                     "diary_database"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 instance
             }
