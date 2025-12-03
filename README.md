@@ -1,7 +1,5 @@
 <div align="center">
 
-  <img src="URL_DE_TU_LOGO_AQUI.png" alt="MyDay Logo" width="120" />
-
   # MyDay
   
   **Organiza tu día, alcanza tus metas.**
