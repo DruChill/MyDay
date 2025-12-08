@@ -8,8 +8,10 @@ import java.util.Date
 data class DiaryEntry(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
-    val title: String,
-    val content: String,
+    val title: String = "",
+    val content: String = "",
     val date: Long = Date().time,
-    val createdAt: Long = Date().time
+    val createdAt: Long = Date().time,
+    val userId: String = "",  // Firebase user ID
+    val firestoreId: String = ""  // Firestore document ID for sync
 )

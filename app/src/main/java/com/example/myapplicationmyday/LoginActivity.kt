@@ -6,23 +6,28 @@ import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplicationmyday.data.User
 import com.example.myapplicationmyday.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Initialize Firebase Auth
+        // Initialize Firebase Auth and Firestore
         auth = Firebase.auth
+        firestore = Firebase.firestore
 
         // Check if user is already signed in
         if (auth.currentUser != null) {
@@ -110,23 +115,51 @@ class LoginActivity : AppCompatActivity() {
 
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
-                showLoading(false)
                 if (task.isSuccessful) {
-                    // Sign up success
-                    Toast.makeText(
-                        this,
-                        getString(R.string.sign_up_success),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    navigateToHome()
+                    // Sign up success - Create user profile in Firestore
+                    createUserProfile(email)
                 } else {
                     // Sign up failed
+                    showLoading(false)
                     Toast.makeText(
                         this,
                         getString(R.string.sign_up_failed, task.exception?.message),
                         Toast.LENGTH_LONG
                     ).show()
                 }
+            }
+    }
+    
+    private fun createUserProfile(email: String) {
+        val userId = auth.currentUser?.uid ?: return
+        
+        val newUser = User(
+            uid = userId,
+            email = email,
+            displayName = "",
+            username = "",
+            photoUrl = "",
+            bio = ""
+        )
+        
+        firestore.collection("users").document(userId)
+            .set(newUser)
+            .addOnSuccessListener {
+                showLoading(false)
+                Toast.makeText(
+                    this,
+                    getString(R.string.sign_up_success),
+                    Toast.LENGTH_SHORT
+                ).show()
+                navigateToHome()
+            }
+            .addOnFailureListener {
+                showLoading(false)
+                Toast.makeText(
+                    this,
+                    "Error al crear perfil: ${it.message}",
+                    Toast.LENGTH_LONG
+                ).show()
             }
     }
 

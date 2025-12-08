@@ -35,4 +35,22 @@
     <string name="sign_up_failed">Error al crear cuenta: %s</string>
     <string name="sign_out_success">Sesión cerrada</string>
     <string name="sign_out_confirm">¿Deseas cerrar sesión?</string>
+    
+    <!-- Profile Screen -->
+    <string name="profile">Perfil</string>
+    <string name="back">Atrás</string>
+    <string name="profile_photo">Foto de perfil</string>
+    <string name="edit_photo">Editar foto</string>
+    <string name="display_name">Nombre completo</string>
+    <string name="username">Nombre de usuario</string>
+    <string name="bio">Biografía</string>
+    <string name="save_profile">Guardar perfil</string>
+    <string name="profile_updated">Perfil actualizado</string>
+    <string name="error_updating_profile">Error al actualizar perfil</string>
+    <string name="uploading_photo">Subiendo foto…</string>
+    <string name="photo_uploaded">Foto actualizada</string>
+    <string name="error_uploading_photo">Error al subir foto</string>
+    <string name="select_photo_source">Seleccionar foto de</string>
+    <string name="camera">Cámara</string>
+    <string name="gallery">Galería</string>
 </resources>

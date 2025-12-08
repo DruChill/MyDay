@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/spotify_black"
     tools:context=".MainActivity">
 
     <!-- Toolbar superior -->
@@ -13,7 +13,7 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background"
+        android:background="@color/spotify_black"
         app:elevation="0dp">
 
         <LinearLayout
@@ -40,7 +40,7 @@
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/add_button"
                     android:src="@drawable/ic_back"
-                    app:tint="@color/text_primary" />
+                    app:tint="@color/spotify_white" />
 
                 <View
                     android:layout_width="0dp"
@@ -55,7 +55,7 @@
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/search"
                     android:src="@drawable/ic_search"
-                    app:tint="@color/text_primary" />
+                    app:tint="@color/spotify_white" />
 
                 <!-- Botón Más opciones -->
                 <ImageButton
@@ -65,7 +65,7 @@
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/more_options"
                     android:src="@drawable/ic_more"
-                    app:tint="@color/text_primary" />
+                    app:tint="@color/spotify_white" />
 
             </LinearLayout>
 
@@ -75,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/diary_title"
-                android:textColor="@color/text_primary"
+                android:textColor="@color/spotify_white"
                 android:textSize="34sp"
                 android:textStyle="bold"
                 android:layout_marginTop="8dp" />
@@ -127,7 +127,7 @@
                     android:layout_height="80dp"
                     android:contentDescription="@string/no_entries"
                     android:src="@drawable/ic_butterfly"
-                    app:tint="@color/primary" />
+                    app:tint="@color/spotify_green" />
 
                 <!-- Texto "Sin entradas" -->
                 <TextView
@@ -135,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:text="@string/no_entries"
-                    android:textColor="@color/text_primary"
+                    android:textColor="@color/spotify_white"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
@@ -146,7 +146,7 @@
                     android:layout_marginTop="8dp"
                     android:text="@string/add_entry_hint"
                     android:textAlignment="center"
-                    android:textColor="@color/text_secondary"
+                    android:textColor="@color/spotify_text_gray"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -164,7 +164,7 @@
         android:layout_margin="24dp"
         android:contentDescription="@string/add_button"
         android:src="@drawable/ic_add"
-        app:backgroundTint="@color/primary"
+        app:backgroundTint="@color/spotify_green"
         app:tint="@android:color/white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

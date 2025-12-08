@@ -96,7 +96,7 @@ class HomeActivity : AppCompatActivity() {
     
     private fun setupClickListeners() {
         binding.btnMore.setOnClickListener {
-            showSignOutDialog()
+            openProfile()
         }
         
         // Click en tarjeta de estadísticas
@@ -134,6 +134,11 @@ class HomeActivity : AppCompatActivity() {
         binding.btnAddDiary.setOnClickListener {
             // TODO: Mostrar diálogo para crear nuevo diario
         }
+    }
+    
+    private fun openProfile() {
+        val intent = Intent(this, ProfileActivity::class.java)
+        startActivity(intent)
     }
     
     private fun showSignOutDialog() {

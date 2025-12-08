@@ -8,8 +8,8 @@
     android:clickable="true"
     android:focusable="true"
     app:cardCornerRadius="16dp"
-    app:cardElevation="1dp"
-    app:cardBackgroundColor="@android:color/white">
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="@color/spotify_dark_gray">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text="Título de la entrada"
-            android:textColor="@color/text_primary"
+            android:textColor="@color/spotify_white"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/btnEntryMenu"
@@ -41,7 +41,7 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:text="Contenido de la entrada del diario..."
-            android:textColor="@color/text_secondary"
+            android:textColor="@color/spotify_text_gray"
             android:textSize="15sp"
             android:lineSpacingExtra="2dp"
             app:layout_constraintEnd_toStartOf="@id/btnEntryMenu"
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Miércoles, 19 nov."
-            android:textColor="@color/text_secondary"
+            android:textColor="@color/spotify_text_gray"
             android:textSize="13sp"
             app:layout_constraintEnd_toStartOf="@id/btnEntryMenu"
             app:layout_constraintStart_toStartOf="parent"
@@ -69,7 +69,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/more_options"
             android:src="@drawable/ic_more"
-            app:tint="@color/text_secondary"
+            app:tint="@color/spotify_text_gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

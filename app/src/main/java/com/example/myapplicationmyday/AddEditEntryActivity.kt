@@ -10,6 +10,9 @@ import com.example.myapplicationmyday.data.DiaryEntry
 import com.example.myapplicationmyday.data.DiaryRepository
 import com.example.myapplicationmyday.databinding.ActivityAddEditEntryBinding
 import com.example.myapplicationmyday.viewmodel.DiaryViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
@@ -18,6 +21,7 @@ class AddEditEntryActivity : AppCompatActivity() {
     
     private lateinit var binding: ActivityAddEditEntryBinding
     private val viewModel: DiaryViewModel by viewModels()
+    private lateinit var auth: FirebaseAuth
     private var entryId: Long = -1L
     private var currentEntry: DiaryEntry? = null
     
@@ -26,6 +30,7 @@ class AddEditEntryActivity : AppCompatActivity() {
         binding = ActivityAddEditEntryBinding.inflate(layoutInflater)
         setContentView(binding.root)
         
+        auth = Firebase.auth
         entryId = intent.getLongExtra("ENTRY_ID", -1L)
         
         setupUI()
@@ -89,10 +94,13 @@ class AddEditEntryActivity : AppCompatActivity() {
             )
         } else {
             // Crear nueva entrada
+            val userId = auth.currentUser?.uid ?: ""
             DiaryEntry(
                 title = title,
                 content = content,
-                date = System.currentTimeMillis()
+                date = System.currentTimeMillis(),
+                userId = userId,
+                firestoreId = ""
             )
         }
         

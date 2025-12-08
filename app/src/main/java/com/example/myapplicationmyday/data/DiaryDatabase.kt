@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [DiaryEntry::class, DeletedEntry::class], version = 2, exportSchema = false)
+@Database(entities = [DiaryEntry::class, DeletedEntry::class], version = 3, exportSchema = false)
 abstract class DiaryDatabase : RoomDatabase() {
     abstract fun diaryDao(): DiaryDao
     abstract fun deletedEntryDao(): DeletedEntryDao
