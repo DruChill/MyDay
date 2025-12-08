@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mi Diario</string>
+    <string name="app_name">Mi Day</string>
     <string name="diary_title">Diario</string>
     <string name="no_entries">Sin entradas</string>
     <string name="add_entry_hint">Para agregar una entrada, toca el botón Más.</string>
@@ -17,8 +17,11 @@
     <string name="login_subtitle">Tu espacio personal para reflexionar</string>
     <string name="email">Correo electrónico</string>
     <string name="password">Contraseña</string>
+    <string name="confirm_password">Confirmar contraseña</string>
     <string name="sign_in">Iniciar sesión</string>
     <string name="sign_up">Crear cuenta</string>
+    <string name="create_account">Crear cuenta</string>
+    <string name="create_account_subtitle">Ingresa tus datos para empezar</string>
     <string name="sign_out">Cerrar sesión</string>
     <string name="or">o</string>
     
@@ -27,6 +30,15 @@
     <string name="error_invalid_email">Correo inválido</string>
     <string name="error_password_required">La contraseña es requerida</string>
     <string name="error_password_too_short">La contraseña debe tener al menos 6 caracteres</string>
+    <string name="error_password_length">La contraseña debe tener al menos 6 caracteres</string>
+    <string name="error_confirm_password_required">Confirma tu contraseña</string>
+    <string name="error_passwords_not_match">Las contraseñas no coinciden</string>
+    <string name="error_email_in_use">Este correo ya está registrado</string>
+    <string name="error_creating_account">Error al crear la cuenta</string>
+    <string name="error_creating_profile">Error al crear el perfil</string>
+    <string name="account_created_success">Cuenta creada exitosamente</string>
+    <string name="error_authentication">Error de autenticación</string>
+    <string name="error_network">Error de conexión. Verifica tu internet</string>
     
     <!-- Success Messages -->
     <string name="sign_in_success">Sesión iniciada</string>

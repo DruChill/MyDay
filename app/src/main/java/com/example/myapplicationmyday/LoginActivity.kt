@@ -6,7 +6,6 @@ import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplicationmyday.data.User
 import com.example.myapplicationmyday.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -49,12 +48,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnSignUp.setOnClickListener {
-            val email = binding.etEmail.text.toString().trim()
-            val password = binding.etPassword.text.toString().trim()
-
-            if (validateInput(email, password)) {
-                signUp(email, password)
-            }
+            navigateToSignUp()
         }
     }
 
@@ -110,57 +104,9 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
-    private fun signUp(email: String, password: String) {
-        showLoading(true)
-
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    // Sign up success - Create user profile in Firestore
-                    createUserProfile(email)
-                } else {
-                    // Sign up failed
-                    showLoading(false)
-                    Toast.makeText(
-                        this,
-                        getString(R.string.sign_up_failed, task.exception?.message),
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            }
-    }
-    
-    private fun createUserProfile(email: String) {
-        val userId = auth.currentUser?.uid ?: return
-        
-        val newUser = User(
-            uid = userId,
-            email = email,
-            displayName = "",
-            username = "",
-            photoUrl = "",
-            bio = ""
-        )
-        
-        firestore.collection("users").document(userId)
-            .set(newUser)
-            .addOnSuccessListener {
-                showLoading(false)
-                Toast.makeText(
-                    this,
-                    getString(R.string.sign_up_success),
-                    Toast.LENGTH_SHORT
-                ).show()
-                navigateToHome()
-            }
-            .addOnFailureListener {
-                showLoading(false)
-                Toast.makeText(
-                    this,
-                    "Error al crear perfil: ${it.message}",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
+    private fun navigateToSignUp() {
+        val intent = Intent(this, SignUpActivity::class.java)
+        startActivity(intent)
     }
 
     private fun showLoading(isLoading: Boolean) {
