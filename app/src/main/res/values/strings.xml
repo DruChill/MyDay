@@ -12,4 +12,27 @@
     <string name="edit">Editar</string>
     <string name="search">Buscar</string>
     <string name="more_options">Más opciones</string>
+    
+    <!-- Login Screen -->
+    <string name="login_subtitle">Tu espacio personal para reflexionar</string>
+    <string name="email">Correo electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="sign_in">Iniciar sesión</string>
+    <string name="sign_up">Crear cuenta</string>
+    <string name="sign_out">Cerrar sesión</string>
+    <string name="or">o</string>
+    
+    <!-- Error Messages -->
+    <string name="error_email_required">El correo es requerido</string>
+    <string name="error_invalid_email">Correo inválido</string>
+    <string name="error_password_required">La contraseña es requerida</string>
+    <string name="error_password_too_short">La contraseña debe tener al menos 6 caracteres</string>
+    
+    <!-- Success Messages -->
+    <string name="sign_in_success">Sesión iniciada</string>
+    <string name="sign_in_failed">Error al iniciar sesión: %s</string>
+    <string name="sign_up_success">Cuenta creada exitosamente</string>
+    <string name="sign_up_failed">Error al crear cuenta: %s</string>
+    <string name="sign_out_success">Sesión cerrada</string>
+    <string name="sign_out_confirm">¿Deseas cerrar sesión?</string>
 </resources>

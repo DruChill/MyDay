@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/spotify_black"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Botón de menú superior -->
+        <!-- Botón de menú superior (Sign Out) -->
         <ImageButton
             android:id="@+id/btnMore"
             android:layout_width="48dp"
@@ -19,7 +19,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/more_options"
             android:src="@drawable/ic_more"
-            app:tint="#1F2937"
+            app:tint="@color/spotify_white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,7 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
-            app:cardBackgroundColor="#5B67CA"
+            app:cardBackgroundColor="@color/spotify_dark_gray"
             app:cardCornerRadius="20dp"
             app:cardElevation="2dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -77,7 +77,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="entrada este año"
-                            android:textColor="#B8BEE8"
+                            android:textColor="@color/spotify_text_gray"
                             android:textSize="14sp" />
 
                     </LinearLayout>
@@ -118,7 +118,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:text="día de racha"
-                            android:textColor="#B8BEE8"
+                            android:textColor="@color/spotify_text_gray"
                             android:textSize="14sp" />
 
                     </LinearLayout>
@@ -155,7 +155,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="palabras en total"
-                    android:textColor="#B8BEE8"
+                    android:textColor="@color/spotify_text_gray"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -168,7 +168,7 @@
             android:layout_width="0dp"
             android:layout_height="200dp"
             android:layout_marginTop="16dp"
-            app:cardBackgroundColor="#E0E7FF"
+            app:cardBackgroundColor="@color/spotify_dark_gray"
             app:cardCornerRadius="20dp"
             app:cardElevation="2dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -183,14 +183,14 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#E0E7FF" />
+                    android:background="@color/spotify_dark_gray" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
                     android:text="Lugares"
-                    android:textColor="#1F2937"
+                    android:textColor="@color/spotify_white"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
@@ -214,7 +214,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Diarios"
-                android:textColor="#9CA3AF"
+                android:textColor="@color/spotify_text_gray"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -225,7 +225,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/add_button"
                 android:src="@drawable/ic_add"
-                app:tint="#9CA3AF" />
+                app:tint="@color/spotify_text_gray" />
 
         </LinearLayout>
 
@@ -235,7 +235,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            app:cardBackgroundColor="#F9FAFB"
+            app:cardBackgroundColor="@color/spotify_dark_gray"
             app:cardCornerRadius="16dp"
             app:cardElevation="1dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -263,7 +263,7 @@
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:src="@drawable/ic_grid"
-                        app:tint="#9CA3AF" />
+                        app:tint="@color/spotify_text_gray" />
 
                     <TextView
                         android:layout_width="0dp"
@@ -271,7 +271,7 @@
                         android:layout_weight="1"
                         android:layout_marginStart="16dp"
                         android:text="Todas las entradas"
-                        android:textColor="#1F2937"
+                        android:textColor="@color/spotify_white"
                         android:textSize="16sp" />
 
                     <TextView
@@ -280,14 +280,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:text="1"
-                        android:textColor="#6B7280"
+                        android:textColor="@color/spotify_text_gray"
                         android:textSize="16sp" />
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@drawable/ic_chevron_right"
-                        app:tint="#9CA3AF" />
+                        app:tint="@color/spotify_text_gray" />
 
                 </LinearLayout>
 
@@ -305,7 +305,7 @@
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:src="@drawable/ic_book"
-                        app:tint="#6366F1" />
+                        app:tint="@color/spotify_green" />
 
                     <TextView
                         android:layout_width="0dp"
@@ -313,7 +313,7 @@
                         android:layout_weight="1"
                         android:layout_marginStart="16dp"
                         android:text="Diario"
-                        android:textColor="#1F2937"
+                        android:textColor="@color/spotify_white"
                         android:textSize="16sp" />
 
                     <TextView
@@ -322,14 +322,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:text="1"
-                        android:textColor="#6B7280"
+                        android:textColor="@color/spotify_text_gray"
                         android:textSize="16sp" />
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@drawable/ic_chevron_right"
-                        app:tint="#9CA3AF" />
+                        app:tint="@color/spotify_text_gray" />
 
                 </LinearLayout>
 
@@ -355,7 +355,7 @@
                         android:layout_weight="1"
                         android:layout_marginStart="16dp"
                         android:text="Social Media"
-                        android:textColor="#1F2937"
+                        android:textColor="@color/spotify_white"
                         android:textSize="16sp" />
 
                     <TextView
@@ -363,14 +363,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:text="0"
-                        android:textColor="#6B7280"
+                        android:textColor="@color/spotify_text_gray"
                         android:textSize="16sp" />
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@drawable/ic_chevron_right"
-                        app:tint="#9CA3AF" />
+                        app:tint="@color/spotify_text_gray" />
 
                 </LinearLayout>
 
@@ -388,7 +388,7 @@
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:src="@drawable/ic_delete"
-                        app:tint="#9CA3AF" />
+                        app:tint="@color/spotify_text_gray" />
 
                     <TextView
                         android:layout_width="0dp"
@@ -396,7 +396,7 @@
                         android:layout_weight="1"
                         android:layout_marginStart="16dp"
                         android:text="Eliminadas recientemente"
-                        android:textColor="#1F2937"
+                        android:textColor="@color/spotify_white"
                         android:textSize="16sp" />
 
                     <TextView
@@ -404,14 +404,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:text="1"
-                        android:textColor="#6B7280"
+                        android:textColor="@color/spotify_text_gray"
                         android:textSize="16sp" />
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@drawable/ic_chevron_right"
-                        app:tint="#9CA3AF" />
+                        app:tint="@color/spotify_text_gray" />
 
                 </LinearLayout>
 

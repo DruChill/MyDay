@@ -2,21 +2,36 @@ package com.example.myapplicationmyday
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplicationmyday.data.DiaryEntry
 import com.example.myapplicationmyday.databinding.ActivityHomeBinding
 import com.example.myapplicationmyday.viewmodel.DiaryViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class HomeActivity : AppCompatActivity() {
     
     private lateinit var binding: ActivityHomeBinding
     private val viewModel: DiaryViewModel by viewModels()
+    private lateinit var auth: FirebaseAuth
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        
+        // Initialize Firebase Auth
+        auth = Firebase.auth
+        
+        // Check if user is signed in
+        if (auth.currentUser == null) {
+            navigateToLogin()
+            return
+        }
         
         setupObservers()
         setupClickListeners()
@@ -81,7 +96,7 @@ class HomeActivity : AppCompatActivity() {
     
     private fun setupClickListeners() {
         binding.btnMore.setOnClickListener {
-            // TODO: Mostrar menú de opciones
+            showSignOutDialog()
         }
         
         // Click en tarjeta de estadísticas
@@ -119,6 +134,30 @@ class HomeActivity : AppCompatActivity() {
         binding.btnAddDiary.setOnClickListener {
             // TODO: Mostrar diálogo para crear nuevo diario
         }
+    }
+    
+    private fun showSignOutDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.sign_out))
+            .setMessage(getString(R.string.sign_out_confirm))
+            .setPositiveButton(getString(R.string.sign_out)) { _, _ ->
+                signOut()
+            }
+            .setNegativeButton(getString(R.string.cancel), null)
+            .show()
+    }
+    
+    private fun signOut() {
+        auth.signOut()
+        Toast.makeText(this, getString(R.string.sign_out_success), Toast.LENGTH_SHORT).show()
+        navigateToLogin()
+    }
+    
+    private fun navigateToLogin() {
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
     }
     
     private fun openDiaryScreen() {
