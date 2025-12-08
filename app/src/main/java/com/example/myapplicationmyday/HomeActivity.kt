@@ -33,8 +33,16 @@ class HomeActivity : AppCompatActivity() {
             return
         }
         
+        // Sync diaries from Firestore
+        syncDiariesFromCloud()
+        
         setupObservers()
         setupClickListeners()
+    }
+    
+    private fun syncDiariesFromCloud() {
+        val userId = auth.currentUser?.uid ?: return
+        viewModel.syncFromFirestore(userId)
     }
     
     override fun onResume() {

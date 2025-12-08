@@ -30,4 +30,8 @@ class DiaryViewModel(application: Application) : AndroidViewModel(application) {
     fun delete(entry: DiaryEntry) = viewModelScope.launch {
         repository.delete(entry)
     }
+    
+    fun syncFromFirestore(userId: String) = viewModelScope.launch {
+        repository.syncFromFirestore(userId)
+    }
 }

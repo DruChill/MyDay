@@ -16,6 +16,9 @@ import com.example.myapplicationmyday.data.DiaryEntry
 import com.example.myapplicationmyday.databinding.ActivityMainBinding
 import com.example.myapplicationmyday.viewmodel.DeletedEntryViewModel
 import com.example.myapplicationmyday.viewmodel.DiaryViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -24,11 +27,19 @@ class MainActivity : AppCompatActivity() {
     private val viewModel: DiaryViewModel by viewModels()
     private val deletedViewModel: DeletedEntryViewModel by viewModels()
     private lateinit var adapter: DiaryAdapter
+    private lateinit var auth: FirebaseAuth
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        
+        auth = Firebase.auth
+        
+        // Sync from Firestore
+        auth.currentUser?.uid?.let { userId ->
+            viewModel.syncFromFirestore(userId)
+        }
         
         setupRecyclerView()
         setupObservers()

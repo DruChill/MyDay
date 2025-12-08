@@ -11,6 +11,9 @@ interface DiaryDao {
     @Query("SELECT * FROM diary_entries WHERE id = :id")
     suspend fun getEntryById(id: Long): DiaryEntry?
     
+    @Query("SELECT * FROM diary_entries WHERE userId = :userId")
+    suspend fun getEntriesByUserId(userId: String): List<DiaryEntry>
+    
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entry: DiaryEntry): Long
     

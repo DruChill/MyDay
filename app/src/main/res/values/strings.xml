@@ -66,4 +66,9 @@
     <string name="select_photo_source">Seleccionar foto de</string>
     <string name="camera">Cámara</string>
     <string name="gallery">Galería</string>
+    
+    <!-- Sync Messages -->
+    <string name="syncing_diaries">Sincronizando diarios…</string>
+    <string name="sync_complete">Diarios sincronizados</string>
+    <string name="sync_error">Error al sincronizar</string>
 </resources>
