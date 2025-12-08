@@ -37,135 +37,17 @@
             app:layout_constraintStart_toEndOf="@id/btnBack"
             app:layout_constraintTop_toTopOf="@id/btnBack" />
 
-        <!-- Profile Photo Container -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardProfilePhoto"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:layout_marginTop="40dp"
-            app:cardCornerRadius="70dp"
-            app:cardElevation="4dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnBack">
-
-            <ImageView
-                android:id="@+id/ivProfilePhoto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_person"
-                android:contentDescription="@string/profile_photo" />
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Edit Photo Button -->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabEditPhoto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/edit_photo"
-            android:src="@drawable/ic_camera"
-            app:backgroundTint="@color/spotify_green"
-            app:tint="@color/spotify_white"
-            app:fabSize="mini"
-            app:layout_constraintBottom_toBottomOf="@id/cardProfilePhoto"
-            app:layout_constraintEnd_toEndOf="@id/cardProfilePhoto" />
-
-        <!-- Display Name Input -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilDisplayName"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:hint="@string/display_name"
-            app:boxBackgroundColor="@color/spotify_dark_gray"
-            app:boxStrokeColor="@color/spotify_light_gray"
-            app:hintTextColor="@color/spotify_text_gray"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardProfilePhoto">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etDisplayName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:textColor="@color/spotify_white"
-                android:textColorHint="@color/spotify_text_gray"
-                android:padding="16dp" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Username Input -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilUsername"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:hint="@string/username"
-            app:boxBackgroundColor="@color/spotify_dark_gray"
-            app:boxStrokeColor="@color/spotify_light_gray"
-            app:hintTextColor="@color/spotify_text_gray"
-            app:prefixText="\@"
-            app:prefixTextColor="@color/spotify_text_gray"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilDisplayName">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etUsername"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:textColor="@color/spotify_white"
-                android:textColorHint="@color/spotify_text_gray"
-                android:padding="16dp" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Bio Input -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilBio"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:hint="@string/bio"
-            app:boxBackgroundColor="@color/spotify_dark_gray"
-            app:boxStrokeColor="@color/spotify_light_gray"
-            app:hintTextColor="@color/spotify_text_gray"
-            app:counterEnabled="true"
-            app:counterMaxLength="150"
-            app:counterTextColor="@color/spotify_text_gray"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilUsername">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etBio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
-                android:maxLength="150"
-                android:minLines="3"
-                android:gravity="top|start"
-                android:textColor="@color/spotify_white"
-                android:textColorHint="@color/spotify_text_gray"
-                android:padding="16dp" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Email (Read Only) -->
+        <!-- Email Label -->
         <TextView
             android:id="@+id/tvEmailLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="60dp"
             android:text="@string/email"
             android:textColor="@color/spotify_text_gray"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilBio" />
+            app:layout_constraintTop_toBottomOf="@id/btnBack" />
 
         <TextView
             android:id="@+id/tvEmail"
@@ -174,54 +56,55 @@
             android:layout_marginTop="8dp"
             android:text="usuario@ejemplo.com"
             android:textColor="@color/spotify_white"
-            android:textSize="16sp"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvEmailLabel" />
 
-        <!-- Save Button -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSave"
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_marginTop="40dp"
-            android:backgroundTint="@color/spotify_green"
-            android:text="@string/save_profile"
-            android:textColor="@color/spotify_white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:cornerRadius="28dp"
-            app:layout_constraintEnd_toEndOf="parent"
+        <!-- Member Since Label -->
+        <TextView
+            android:id="@+id/tvMemberSinceLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/member_since"
+            android:textColor="@color/spotify_text_gray"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvEmail" />
+
+        <TextView
+            android:id="@+id/tvMemberSince"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Diciembre 2025"
+            android:textColor="@color/spotify_white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvMemberSinceLabel" />
 
         <!-- Sign Out Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSignOut"
-            style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="0dp"
             android:layout_height="56dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="80dp"
             android:layout_marginBottom="24dp"
+            android:backgroundTint="@color/spotify_dark_gray"
             android:text="@string/sign_out"
-            android:textColor="@color/spotify_text_gray"
+            android:textColor="@color/spotify_white"
             android:textSize="16sp"
+            android:textStyle="bold"
+            app:cornerRadius="28dp"
+            app:strokeColor="@color/spotify_light_gray"
+            app:strokeWidth="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnSave" />
-
-        <!-- Loading ProgressBar -->
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:indeterminateTint="@color/spotify_green"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/tvMemberSince" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
