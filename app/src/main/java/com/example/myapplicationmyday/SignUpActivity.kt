@@ -2,6 +2,7 @@ package com.example.myapplicationmyday
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
@@ -109,6 +110,8 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun createUserProfile(userId: String, email: String) {
+        Log.d("SignUpActivity", "Creating user profile for userId: $userId")
+        
         val user = User(
             uid = userId,
             email = email,
@@ -123,6 +126,7 @@ class SignUpActivity : AppCompatActivity() {
             .set(user)
             .addOnSuccessListener {
                 showLoading(false)
+                Log.d("SignUpActivity", "User profile created successfully in Firestore")
                 Toast.makeText(
                     this,
                     getString(R.string.account_created_success),
@@ -130,12 +134,13 @@ class SignUpActivity : AppCompatActivity() {
                 ).show()
                 navigateToHome()
             }
-            .addOnFailureListener {
+            .addOnFailureListener { exception ->
                 showLoading(false)
+                Log.e("SignUpActivity", "Error creating user profile", exception)
                 Toast.makeText(
                     this,
-                    getString(R.string.error_creating_profile),
-                    Toast.LENGTH_SHORT
+                    getString(R.string.error_creating_profile) + ": ${exception.message}",
+                    Toast.LENGTH_LONG
                 ).show()
             }
     }
