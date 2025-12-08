@@ -129,7 +129,8 @@ class HomeActivity : AppCompatActivity() {
         
         // Click en "Social Media"
         binding.layoutSocialMedia.setOnClickListener {
-            // TODO: Abrir pantalla de Social Media
+            val intent = Intent(this, SocialMediaActivity::class.java)
+            startActivity(intent)
         }
         
         // Click en "Eliminadas recientemente"
