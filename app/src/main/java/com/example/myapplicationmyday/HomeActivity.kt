@@ -76,7 +76,6 @@ class HomeActivity : AppCompatActivity() {
         binding.tvTotalWords.text = totalWords.toString()
         
         // Actualizar contadores de diarios
-        binding.tvAllEntriesCount.text = entryCount.toString()
         binding.tvDiaryCount.text = entryCount.toString()
         
         // Actualizar texto descriptivo
@@ -115,11 +114,6 @@ class HomeActivity : AppCompatActivity() {
         // Click en tarjeta de lugares
         binding.cardPlaces.setOnClickListener {
             // TODO: Abrir pantalla de lugares
-        }
-        
-        // Click en "Todas las entradas"
-        binding.layoutAllEntries.setOnClickListener {
-            openDiaryScreen()
         }
         
         // Click en "Diario"
