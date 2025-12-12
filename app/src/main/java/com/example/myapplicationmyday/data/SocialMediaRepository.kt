@@ -104,7 +104,17 @@ class SocialMediaRepository(private val socialMediaDao: SocialMediaDao) {
                 .get()
                 .await()
             
+            // Get existing firestoreIds from local database
+            val existingLinks = socialMediaDao.getLinksByUserIdSync(userId)
+            val existingFirestoreIds = existingLinks.mapNotNull { it.firestoreId }.toSet()
+            
             snapshot.documents.forEach { doc ->
+                // Skip if already exists locally
+                if (doc.id in existingFirestoreIds) {
+                    Log.d("SocialMediaRepository", "Link ${doc.id} already exists locally, skipping")
+                    return@forEach
+                }
+                
                 val platformName = doc.getString("platform") ?: "OTHER"
                 val platform = try {
                     SocialPlatform.valueOf(platformName)
@@ -125,9 +135,10 @@ class SocialMediaRepository(private val socialMediaDao: SocialMediaDao) {
                 )
                 
                 socialMediaDao.insert(link)
+                Log.d("SocialMediaRepository", "Synced new link from Firestore: ${doc.id}")
             }
             
-            Log.d("SocialMediaRepository", "Synced ${snapshot.size()} links from Firestore")
+            Log.d("SocialMediaRepository", "Sync completed: ${snapshot.size()} links from Firestore")
         } catch (e: Exception) {
             Log.e("SocialMediaRepository", "Error syncing from Firestore", e)
         }

@@ -14,6 +14,9 @@ interface SocialMediaDao {
     @Query("SELECT * FROM social_media_links WHERE userId = :userId ORDER BY createdAt DESC")
     fun getLinksByUserId(userId: String): LiveData<List<SocialMediaLink>>
     
+    @Query("SELECT * FROM social_media_links WHERE userId = :userId ORDER BY createdAt DESC")
+    suspend fun getLinksByUserIdSync(userId: String): List<SocialMediaLink>
+    
     @Query("SELECT * FROM social_media_links WHERE userId = :userId AND platform = :platform ORDER BY createdAt DESC")
     fun getLinksByUserAndPlatform(userId: String, platform: SocialPlatform): LiveData<List<SocialMediaLink>>
     

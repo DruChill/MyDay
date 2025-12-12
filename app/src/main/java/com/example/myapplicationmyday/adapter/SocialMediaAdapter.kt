@@ -12,6 +12,9 @@ import com.example.myapplicationmyday.R
 import com.example.myapplicationmyday.data.SocialMediaLink
 import com.example.myapplicationmyday.data.SocialPlatform
 import com.example.myapplicationmyday.databinding.ItemSocialLinkBinding
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 
 class SocialMediaAdapter(
     private val onItemClick: (SocialMediaLink) -> Unit,
@@ -75,8 +78,12 @@ class SocialMediaAdapter(
                 // Image preview
                 if (link.imageUrl.isNotEmpty()) {
                     ivPreview.visibility = View.VISIBLE
-                    // TODO: Load image with Glide or Coil
-                    // Glide.with(ivPreview.context).load(link.imageUrl).into(ivPreview)
+                    Glide.with(ivPreview.context)
+                        .load(link.imageUrl)
+                        .transform(CenterCrop(), RoundedCorners(16))
+                        .placeholder(R.drawable.ic_launcher_background)
+                        .error(R.drawable.ic_launcher_background)
+                        .into(ivPreview)
                 } else {
                     ivPreview.visibility = View.GONE
                 }

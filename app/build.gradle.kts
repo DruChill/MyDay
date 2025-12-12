@@ -67,6 +67,13 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
     
+    // JSoup for URL metadata extraction
+    implementation(libs.jsoup)
+    
+    // Glide for image loading
+    implementation(libs.glide)
+    kapt(libs.glide.compiler)
+    
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

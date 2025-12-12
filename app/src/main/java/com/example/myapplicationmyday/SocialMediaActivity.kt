@@ -17,9 +17,14 @@ import com.example.myapplicationmyday.data.SocialPlatform
 import com.example.myapplicationmyday.databinding.ActivitySocialMediaBinding
 import com.example.myapplicationmyday.databinding.DialogAddSocialLinkBinding
 import com.example.myapplicationmyday.viewmodel.SocialMediaViewModel
+import com.example.myapplicationmyday.util.UrlMetadataExtractor
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SocialMediaActivity : AppCompatActivity() {
 
@@ -150,19 +155,50 @@ class SocialMediaActivity : AppCompatActivity() {
 
             val userId = auth.currentUser?.uid ?: ""
 
-            val link = SocialMediaLink(
-                url = url,
-                platform = platform,
-                title = "",
-                description = "",
-                imageUrl = "",
-                userId = userId,
-                createdAt = System.currentTimeMillis()
-            )
+            // Show loading message
+            dialogBinding.btnSave.isEnabled = false
+            dialogBinding.btnSave.text = "Cargando..."
 
-            viewModel.insert(link)
-            Toast.makeText(this, R.string.link_saved, Toast.LENGTH_SHORT).show()
-            dialog.dismiss()
+            // Extract metadata in background
+            CoroutineScope(Dispatchers.Main).launch {
+                try {
+                    val metadata = withContext(Dispatchers.IO) {
+                        UrlMetadataExtractor.extractMetadata(url)
+                    }
+
+                    val link = SocialMediaLink(
+                        url = url,
+                        platform = platform,
+                        title = metadata.title ?: "",
+                        description = metadata.description ?: "",
+                        imageUrl = metadata.imageUrl ?: "",
+                        userId = userId,
+                        createdAt = System.currentTimeMillis()
+                    )
+
+                    viewModel.insert(link)
+                    Toast.makeText(this@SocialMediaActivity, R.string.link_saved, Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
+                } catch (e: Exception) {
+                    // If metadata extraction fails, still save the link without metadata
+                    val link = SocialMediaLink(
+                        url = url,
+                        platform = platform,
+                        title = "",
+                        description = "",
+                        imageUrl = "",
+                        userId = userId,
+                        createdAt = System.currentTimeMillis()
+                    )
+
+                    viewModel.insert(link)
+                    Toast.makeText(this@SocialMediaActivity, "Link guardado (sin metadata)", Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
+                } finally {
+                    dialogBinding.btnSave.isEnabled = true
+                    dialogBinding.btnSave.text = getString(R.string.save)
+                }
+            }
         }
 
         dialog.show()

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplicationmyday.data.DiaryEntry
 import com.example.myapplicationmyday.databinding.ActivityHomeBinding
 import com.example.myapplicationmyday.viewmodel.DiaryViewModel
+import com.example.myapplicationmyday.viewmodel.SocialMediaViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -17,6 +18,7 @@ class HomeActivity : AppCompatActivity() {
     
     private lateinit var binding: ActivityHomeBinding
     private val viewModel: DiaryViewModel by viewModels()
+    private val socialMediaViewModel: SocialMediaViewModel by viewModels()
     private lateinit var auth: FirebaseAuth
     
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +45,8 @@ class HomeActivity : AppCompatActivity() {
     private fun syncDiariesFromCloud() {
         val userId = auth.currentUser?.uid ?: return
         viewModel.syncFromFirestore(userId)
+        socialMediaViewModel.setUserId(userId)
+        socialMediaViewModel.syncFromFirestore(userId)
     }
     
     override fun onResume() {
@@ -51,12 +55,24 @@ class HomeActivity : AppCompatActivity() {
         viewModel.allEntries.value?.let { entries ->
             updateStatistics(entries)
         }
+        // Actualizar contador de social media
+        socialMediaViewModel.allLinks.value?.let { links ->
+            updateSocialMediaCount(links.size)
+        }
     }
     
     private fun setupObservers() {
         viewModel.allEntries.observe(this) { entries ->
             updateStatistics(entries)
         }
+        
+        socialMediaViewModel.allLinks.observe(this) { links ->
+            updateSocialMediaCount(links.size)
+        }
+    }
+    
+    private fun updateSocialMediaCount(count: Int) {
+        binding.layoutSocialMedia.findViewById<android.widget.TextView>(R.id.tvSocialMediaCount)?.text = count.toString()
     }
     
     private fun updateStatistics(entries: List<DiaryEntry>) {
