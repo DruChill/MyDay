@@ -11,14 +11,14 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Botón de menú superior (Sign Out) -->
+        <!-- Botón de perfil superior -->
         <ImageButton
             android:id="@+id/btnMore"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/more_options"
-            android:src="@drawable/ic_more"
+            android:contentDescription="@string/profile"
+            android:src="@drawable/ic_person"
             app:tint="@color/spotify_white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -82,7 +82,7 @@
 
                     </LinearLayout>
 
-                    <!-- Día de racha -->
+                    <!-- Videos contados -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -98,7 +98,7 @@
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:src="@drawable/ic_calendar"
+                                android:src="@drawable/ic_link"
                                 app:tint="#FFFFFF" />
 
                             <TextView
@@ -106,7 +106,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
-                                android:text="1"
+                                android:text="0"
                                 android:textColor="#FFFFFF"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -117,7 +117,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="día de racha"
+                            android:text="Videos"
                             android:textColor="@color/spotify_text_gray"
                             android:textSize="14sp" />
 

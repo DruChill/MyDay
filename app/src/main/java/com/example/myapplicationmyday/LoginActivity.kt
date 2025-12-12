@@ -2,12 +2,20 @@ package com.example.myapplicationmyday
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplicationmyday.databinding.ActivityLoginBinding
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -18,6 +26,20 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
+    private lateinit var googleSignInClient: GoogleSignInClient
+    
+    private val googleSignInLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+        try {
+            val account = task.getResult(ApiException::class.java)
+            firebaseAuthWithGoogle(account)
+        } catch (e: ApiException) {
+            Log.w("LoginActivity", "Google sign in failed", e)
+            Toast.makeText(this, "Autenticación con Google falló", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +49,13 @@ class LoginActivity : AppCompatActivity() {
         // Initialize Firebase Auth and Firestore
         auth = Firebase.auth
         firestore = Firebase.firestore
+        
+        // Configure Google Sign-In
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         // Check if user is already signed in
         if (auth.currentUser != null) {
@@ -49,6 +78,10 @@ class LoginActivity : AppCompatActivity() {
 
         binding.btnSignUp.setOnClickListener {
             navigateToSignUp()
+        }
+        
+        binding.btnGoogleSignIn.setOnClickListener {
+            signInWithGoogle()
         }
     }
 
@@ -103,6 +136,47 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
     }
+    
+    private fun signInWithGoogle() {
+        val signInIntent = googleSignInClient.signInIntent
+        googleSignInLauncher.launch(signInIntent)
+    }
+    
+    private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
+        showLoading(true)
+        val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                showLoading(false)
+                if (task.isSuccessful) {
+                    // Check if user document exists, create if not
+                    val user = auth.currentUser
+                    user?.let {
+                        val userDoc = firestore.collection("users").document(it.uid)
+                        userDoc.get().addOnSuccessListener { document ->
+                            if (!document.exists()) {
+                                // Create user document
+                                val userData = hashMapOf(
+                                    "email" to it.email,
+                                    "displayName" to it.displayName,
+                                    "createdAt" to System.currentTimeMillis(),
+                                    "provider" to "google"
+                                )
+                                userDoc.set(userData)
+                            }
+                        }
+                    }
+                    Toast.makeText(this, getString(R.string.sign_in_success), Toast.LENGTH_SHORT).show()
+                    navigateToHome()
+                } else {
+                    Toast.makeText(
+                        this,
+                        "Error al autenticar con Google: ${task.exception?.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+    }
 
     private fun navigateToSignUp() {
         val intent = Intent(this, SignUpActivity::class.java)
@@ -113,6 +187,7 @@ class LoginActivity : AppCompatActivity() {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         binding.btnSignIn.isEnabled = !isLoading
         binding.btnSignUp.isEnabled = !isLoading
+        binding.btnGoogleSignIn.isEnabled = !isLoading
         binding.etEmail.isEnabled = !isLoading
         binding.etPassword.isEnabled = !isLoading
     }

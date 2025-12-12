@@ -73,16 +73,14 @@ class HomeActivity : AppCompatActivity() {
     
     private fun updateSocialMediaCount(count: Int) {
         binding.layoutSocialMedia.findViewById<android.widget.TextView>(R.id.tvSocialMediaCount)?.text = count.toString()
+        // También actualizar el contador en estadísticas
+        binding.tvStreakDays.text = count.toString()
     }
     
     private fun updateStatistics(entries: List<DiaryEntry>) {
         // Actualizar estadísticas
         val entryCount = entries.size
         binding.tvEntryCount.text = entryCount.toString()
-        
-        // Calcular días de racha (días consecutivos con entradas)
-        val streakDays = calculateStreakDays(entries.map { it.date })
-        binding.tvStreakDays.text = streakDays.toString()
         
         // Contar palabras totales
         val totalWords = entries.sumOf { entry ->
