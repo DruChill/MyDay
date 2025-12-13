@@ -37,6 +37,9 @@
             android:name=".SocialMediaActivity"
             android:exported="false" />
         <activity
+            android:name=".StatisticsActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity

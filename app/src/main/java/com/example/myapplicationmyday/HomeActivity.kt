@@ -96,25 +96,6 @@ class HomeActivity : AppCompatActivity() {
         binding.tvEntryLabel.text = if (entryCount == 1) "entrada este año" else "entradas este año"
     }
     
-    private fun calculateStreakDays(dates: List<Long>): Int {
-        if (dates.isEmpty()) return 0
-        
-        val sortedDates = dates.map { it / (24 * 60 * 60 * 1000) }.distinct().sortedDescending()
-        val today = System.currentTimeMillis() / (24 * 60 * 60 * 1000)
-        
-        if (!sortedDates.contains(today)) return 0
-        
-        var streak = 1
-        for (i in 0 until sortedDates.size - 1) {
-            if (sortedDates[i] - sortedDates[i + 1] == 1L) {
-                streak++
-            } else {
-                break
-            }
-        }
-        return streak
-    }
-    
     private fun setupClickListeners() {
         binding.btnMore.setOnClickListener {
             openProfile()
@@ -122,7 +103,8 @@ class HomeActivity : AppCompatActivity() {
         
         // Click en tarjeta de estadísticas
         binding.cardStatistics.setOnClickListener {
-            // TODO: Abrir pantalla de estadísticas detalladas
+            val intent = Intent(this, StatisticsActivity::class.java)
+            startActivity(intent)
         }
         
         // Click en tarjeta de lugares
